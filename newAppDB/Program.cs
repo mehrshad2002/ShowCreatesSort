@@ -102,7 +102,7 @@ namespace FirstProgram
             var location = Directory.GetParent(path).Parent.Parent;
 
             Directory.CreateDirectory(location + @"\classess");
-
+            int Counter = 0;
             foreach (DataRow item in tables.Tables[0].Rows)
             {
                 var tableName = item.ItemArray[0].ToString();
@@ -110,7 +110,7 @@ namespace FirstProgram
                 query = query.Replace("mehrshad", tableName);
                 SqlCommand cmd2 = new SqlCommand(query, con);
                 SqlDataReader reader = cmd2.ExecuteReader();
-                int Counter = 0;
+                
                 while (reader.Read())
                 {
 
