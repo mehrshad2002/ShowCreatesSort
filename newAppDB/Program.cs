@@ -9,6 +9,7 @@ namespace FirstProgram
     {
         static void Main(string[] args)
         {
+
             SortName();
         }
 
@@ -62,7 +63,7 @@ namespace FirstProgram
             string ConString = @"Data Source=DESKTOP-6E77HUQ;Initial Catalog=ASM;Integrated Security=True";
             SqlConnection con = new SqlConnection(ConString);
 
-
+            int counter = 0;
             string querystring = "SELECT TABLE_NAME" +
                 " FROM ASM.INFORMATION_SCHEMA.TABLES" +
                 " WHERE TABLE_TYPE = 'BASE TABLE' " +
@@ -75,7 +76,7 @@ namespace FirstProgram
             {
                 var x = reader[0].ToString();
                 File.Create(@$"C:\Users\micro\source\repos\newAppDB\newAppDB\{x}.cs");
-                Console.WriteLine(reader[0].ToString() + " ");
+                Console.WriteLine(reader[0].ToString() + "Number : " + ++counter);
             }
         } 
         public static void SortName()
@@ -103,6 +104,7 @@ namespace FirstProgram
 
             Directory.CreateDirectory(location + @"\classess");
             int Counter = 0;
+
             foreach (DataRow item in tables.Tables[0].Rows)
             {
                 var tableName = item.ItemArray[0].ToString();
@@ -113,86 +115,17 @@ namespace FirstProgram
                 
                 while (reader.Read())
                 {
-
+                    var Class = reader[0].ToString();
                     var text = tableName ;
                     var PartOFText = text.Substring(0, 3);
 
                     
-                    //bool Flag = File.Exists(location + @$"\classess\{PartOFText}");
-                    if ( File.Exists(location + @$"\classess\{PartOFText}") != true)
+                    bool Flag = Directory.Exists(location + @$"\classess\{PartOFText}"); //folder name 
+                    if ( Flag == false )
                     {
-                        
-                        Console.WriteLine(++Counter);
-                        Directory.CreateDirectory(location + @$"\classess\{PartOFText}");
-                        File.WriteAllText(location + @$"\classess\{PartOFText}\{tableName}.cs", text);
+                        Directory.CreateDirectory(location + @$"\classess\{PartOFText}");//create folder
                     }
-                    else
-                    {
-                        Console.WriteLine("All File is Exist !");
-                    }
-                    
-                    //switch (PartOFText)
-                    //{
-                    //    case "Acc":
-                    //        Directory.CreateDirectory(location + @"\classess\Acc");
-                    //        File.WriteAllText(location + @$"\classess\Acc\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Add":
-                    //        Directory.CreateDirectory(location + @"\classess\Add");
-                    //        File.WriteAllText(location + @$"\classess\Add\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Arc":
-                    //        Directory.CreateDirectory(location + @"\classess\Arc");
-                    //        File.WriteAllText(location + @$"\classess\Arc\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Ast":
-                    //        Directory.CreateDirectory(location + @"\classess\Ast");
-                    //        File.WriteAllText(location + @$"\classess\Ast\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Bdg":
-                    //        Directory.CreateDirectory(location + @"\classess\Bdg");
-                    //        File.WriteAllText(location + @$"\classess\Bdg\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Cmr":
-                    //        Directory.CreateDirectory(location + @"\classess\Cmr");
-                    //        File.WriteAllText(location + @$"\classess\Cmr\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Cnt":
-                    //        Directory.CreateDirectory(location + @"\classess\Cnt");
-                    //        File.WriteAllText(location + @$"\classess\Cnt\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Cst":
-                    //        Directory.CreateDirectory(location + @"\classess\Cst");
-                    //        File.WriteAllText(location + @$"\classess\Cst\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Ele":
-                    //        Directory.CreateDirectory(location + @"\classess\Ele");
-                    //        File.WriteAllText(location + @$"\classess\Ele\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Gnr":
-                    //        Directory.CreateDirectory(location + @"\classess\Gnr");
-                    //        File.WriteAllText(location + @$"\classess\Gnr\{tableName}.cs", text);
-                    //        break;
-
-                    //    case "Hrm":
-                    //        Directory.CreateDirectory(location + @"\classess\Hrm");
-                    //        File.WriteAllText(location + @$"\classess\Hrm\{tableName}.cs", text);
-                    //        break;
-
-                    //    default:
-                    //        break;
-                    //}
-                    //File.WriteAllText(location + @$"\classess\{tableName}.cs", text);
-                    //Console.WriteLine(reader[0].ToString() + " ");
+                    File.WriteAllText(location + @$"\classess\{PartOFText}\{tableName}.cs", Class); // create data 
                 }
                 reader.Close();
             }
