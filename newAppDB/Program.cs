@@ -77,7 +77,7 @@ namespace FirstProgram
                 File.Create(@$"C:\Users\micro\source\repos\newAppDB\newAppDB\{x}.cs");
                 Console.WriteLine(reader[0].ToString() + " ");
             }
-        }
+        } 
         public static void SortName()
         {
             string ConString = @"Data Source=DESKTOP-6E77HUQ;Initial Catalog=ASM;Integrated Security=True";
